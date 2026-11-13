@@ -1,0 +1,98 @@
+// =====================================================================
+// 變數 + mixin（由 nuxt.config.ts 自動注入到每個 <style lang="scss">）
+// 這個檔案只能放「不會輸出 CSS」的東西，否則每個元件都會重複一份
+// =====================================================================
+@use 'sass:map';
+
+// ---------- 色彩（黑色系） ----------
+$c-bg: #08090c;
+$c-surface-1: #101217;
+$c-surface-2: #171a21;
+$c-surface-3: #20242d;
+$c-border: rgba(255, 255, 255, 0.08);
+$c-border-strong: rgba(255, 255, 255, 0.16);
+
+$c-text: #f3f4f6;
+$c-text-muted: #a0a6b2;
+$c-text-dim: #6b7180;
+
+$c-primary: #f5b544; // 琥珀金：主要按鈕、重點
+$c-primary-hover: #ffc560;
+$c-primary-ink: #1a1206; // 主要按鈕上的文字
+
+$c-new: #3ddc97;
+$c-hot: #ff5a5f;
+$c-update: #5aa9ff;
+
+// ---------- 字型 ----------
+$font-body: 'Noto Sans TC', system-ui, -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+$font-display: 'Oswald', 'Noto Sans TC', system-ui, sans-serif;
+
+// ---------- 尺寸 ----------
+$container: 1200px;
+$gutter: 16px;
+$gutter-lg: 32px;
+$header-h: 64px;
+
+$radius-sm: 8px;
+$radius-md: 14px;
+$radius-lg: 22px;
+
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+// ---------- 斷點 ----------
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+/// 大於等於某斷點
+@mixin up($bp) {
+  @media (min-width: map.get($breakpoints, $bp)) {
+    @content;
+  }
+}
+
+/// 小於某斷點
+@mixin down($bp) {
+  @media (max-width: map.get($breakpoints, $bp) - 0.02px) {
+    @content;
+  }
+}
+
+/// 只在真的有滑鼠 hover 的裝置上套用（手機點擊不會卡在 hover 狀態）
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $c-primary;
+    outline-offset: 3px;
+  }
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $container + $gutter-lg * 2;
+  margin-inline: auto;
+  padding-inline: $gutter;
+
+  @include up(md) {
+    padding-inline: $gutter-lg;
+  }
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

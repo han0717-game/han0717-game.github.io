@@ -1,0 +1,26 @@
+{
+  "categories": [
+    { "id": "arcade", "name": "街機" },
+    { "id": "action", "name": "動作" },
+    { "id": "puzzle", "name": "益智" },
+    { "id": "casual", "name": "休閒" }
+  ],
+  "games": [
+    {
+      "id": "true-hobo-1",
+      "title": "街友本色 I",
+      "subtitle": "煙屁股大作戰",
+      "titleEn": "True Hobo I: Butt Brawl",
+      "description": "在台灣霓虹暗巷裡挑一根菸屁股，壓住猛吸、適時放開控溫，60 秒內抽出最高分！你能抽贏我嗎？",
+      "url": "https://han45678.github.io/HanWorks/trueHobo/1/",
+      "cover": "https://han45678.github.io/HanWorks/trueHobo/1/images/og-image.jpg",
+      "category": "arcade",
+      "tags": ["黑色幽默", "60 秒挑戰", "單指操作"],
+      "platforms": ["mobile", "desktop"],
+      "status": "live",
+      "badge": "new",
+      "featured": true,
+      "accent": "#f6c27a"
+    }
+  ]
+}
