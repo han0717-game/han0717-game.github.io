@@ -8,6 +8,7 @@ const liveCount = games.filter((g) => g.status === 'live').length
     <AppHeader :live-count="liveCount" :total-count="games.length" />
     <NuxtPage />
     <AppFooter />
+    <AdBar />
   </div>
 </template>
 
