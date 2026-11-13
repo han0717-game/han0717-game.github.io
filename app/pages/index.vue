@@ -28,6 +28,9 @@ const selectedGame = computed(() => {
   return null
 })
 
+/** 廣告被擋、網站被鎖住時，不打開遊戲介紹視窗（視窗會蓋在鎖定畫面上面） */
+const adBlocked = useAdBlocked()
+
 function closeModal() {
   // 從大廳點卡片打開的 → 回上一頁（手機按返回鍵也是關視窗）；直接開 /?{id} 進來的 → 換成首頁網址
   if (window.history.state?.back) router.back()
@@ -86,7 +89,7 @@ function resetFilter() {
     <!-- 靜態網站預先產生的 HTML 沒有網址參數，所以視窗只在瀏覽器端顯示（ClientOnly），避免 hydration 不一致 -->
     <ClientOnly>
       <GameModal
-        v-if="selectedGame"
+        v-if="selectedGame && !adBlocked"
         :key="selectedGame.id"
         :game="selectedGame"
         :category-name="categoryName(selectedGame.category)"

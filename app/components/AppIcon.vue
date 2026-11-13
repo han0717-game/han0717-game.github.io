@@ -12,6 +12,8 @@ const icons = {
   arrowUp: '<path d="M12 19V5M5 12l7-7 7 7"/>',
   share: '<path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
+  refresh: '<path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/>',
+  shield: '<path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="M12 8.5v4M12 16h.01"/>',
 } as const
 
 export type IconName = keyof typeof icons

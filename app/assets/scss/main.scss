@@ -87,8 +87,9 @@ button {
   border: 2px solid $c-bg;
 }
 
-// 遊戲介紹視窗打開時，背後的頁面不能捲動
-html.is-modal-open {
+// 遊戲介紹視窗打開時、廣告被擋鎖住網站時，背後的頁面不能捲動
+html.is-modal-open,
+html.is-gated {
   overflow: hidden;
 }
 
