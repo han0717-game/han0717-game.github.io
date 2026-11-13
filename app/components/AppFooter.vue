@@ -7,7 +7,11 @@ const year = new Date().getFullYear()
     <div class="footer__inner">
       <p class="footer__brand">HAN<b>GAME</b></p>
       <p class="footer__note">所有遊戲皆可在瀏覽器直接遊玩，建議使用最新版 Chrome、Safari 或 Edge。</p>
-      <p class="footer__copy">© {{ year }} Han Game. All rights reserved.</p>
+      <p class="footer__copy">
+        <NuxtLink to="/privacy" class="footer__link">隱私權政策</NuxtLink>
+        <span aria-hidden="true">·</span>
+        © {{ year }} Han Game. All rights reserved.
+      </p>
     </div>
   </footer>
 </template>
@@ -32,6 +36,24 @@ const year = new Date().getFullYear()
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 24px;
+    }
+  }
+
+  &__copy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+  }
+
+  &__link {
+    color: $c-text-muted;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    @include focus-ring;
+
+    @include hover {
+      color: $c-text;
     }
   }
 

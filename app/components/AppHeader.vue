@@ -27,7 +27,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       </NuxtLink>
 
       <nav class="nav" aria-label="主要導覽">
-        <a href="#games" class="nav__link">遊戲列表</a>
+        <NuxtLink to="/#games" class="nav__link">遊戲列表</NuxtLink>
         <span class="nav__stat" :title="`共 ${totalCount} 款，${liveCount} 款可遊玩`">
           <span class="nav__dot" aria-hidden="true" />
           {{ liveCount }} 款上線中

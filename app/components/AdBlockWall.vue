@@ -11,6 +11,8 @@ const { adsense } = useAppConfig()
 const SCRIPT_URL = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsense.client}`
 
 const blocked = useAdBlocked()
+/** 被擋而且不在隱私權政策頁才鎖（composables/useAdBlocked.ts） */
+const locked = useSiteLocked()
 const host = ref('')
 const reloadBtn = ref<HTMLButtonElement | null>(null)
 
@@ -29,19 +31,23 @@ function reload() {
   window.location.reload()
 }
 
-onMounted(async () => {
-  host.value = window.location.hostname
-  if (!(await isAdBlocked())) return
-  blocked.value = true
-  document.documentElement.classList.add('is-gated')
+// 鎖住時頁面不能捲動、焦點放在重新整理按鈕；從隱私權政策頁切回首頁時也會重新鎖上
+watch(locked, async (on) => {
+  document.documentElement.classList.toggle('is-gated', on)
+  if (!on) return
   await nextTick()
   reloadBtn.value?.focus()
+})
+
+onMounted(async () => {
+  host.value = window.location.hostname
+  if (await isAdBlocked()) blocked.value = true
 })
 </script>
 
 <template>
   <div
-    v-if="blocked"
+    v-if="locked"
     class="gate"
     role="alertdialog"
     aria-modal="true"
@@ -75,6 +81,7 @@ onMounted(async () => {
       </button>
 
       <p class="gate__thanks">謝謝你的支持，讓我們能繼續做出更多好玩的遊戲！</p>
+      <NuxtLink to="/privacy" class="gate__privacy">隱私權政策</NuxtLink>
     </div>
   </div>
 </template>
@@ -191,6 +198,19 @@ onMounted(async () => {
   &__thanks {
     font-size: 13px;
     color: $c-text-dim;
+  }
+
+  &__privacy {
+    margin-top: -8px;
+    font-size: 12px;
+    color: $c-text-dim;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    @include focus-ring;
+
+    @include hover {
+      color: $c-text-muted;
+    }
   }
 }
 
