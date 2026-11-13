@@ -1,9 +1,6 @@
 {
   "categories": [
-    { "id": "arcade", "name": "街機" },
-    { "id": "action", "name": "動作" },
-    { "id": "puzzle", "name": "益智" },
-    { "id": "casual", "name": "休閒" }
+    { "id": "1", "name": "街友本色系列" }
   ],
   "games": [
     {
@@ -14,12 +11,12 @@
       "description": "在台灣霓虹暗巷裡挑一根菸屁股，壓住猛吸、適時放開控溫，60 秒內抽出最高分！你能抽贏我嗎？",
       "url": "https://han0717-game.github.io/trueHobo/1/",
       "cover": "https://han0717-game.github.io/trueHobo/1/images/og-image.jpg",
-      "category": "arcade",
+      "category": "1",
       "tags": ["黑色幽默", "60 秒挑戰", "單指操作"],
       "platforms": ["mobile", "desktop"],
       "status": "live",
       "badge": "new",
-      "featured": true,
+      "pinned": true,
       "accent": "#f6c27a"
     }
   ]

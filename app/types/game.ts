@@ -38,8 +38,11 @@ export interface Game {
   platforms: GamePlatform[]
   status: GameStatus
   badge?: GameBadge
-  /** 是否放在大廳最上方的主打區（多個時取第一個） */
-  featured?: boolean
+  /**
+   * 置頂：放在大廳最上方的主打區（只會顯示一款：取第一個置頂且可以玩的）
+   * 都沒有設定時，自動用列表裡第一款可以玩的遊戲
+   */
+  pinned?: boolean
   /** 遊戲代表色（卡片光暈、沒有封面時的底色），例如 "#f6c27a" */
   accent: string
   /** 上架日期 YYYY-MM-DD */

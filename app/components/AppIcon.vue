@@ -10,6 +10,8 @@ const icons = {
   desktop: '<rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M8 20.5h8M12 16.5v4"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   arrowUp: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+  share: '<path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
 } as const
 
 export type IconName = keyof typeof icons

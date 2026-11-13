@@ -1,10 +1,38 @@
 <script setup lang="ts">
 import { ALL_CATEGORY } from '~/composables/useGames'
 
-const { games, featured, categories, categoryName, categoryCounts, activeCategory, keyword, filteredGames } =
-  useGames()
+const {
+  games,
+  pinned,
+  findGame,
+  categories,
+  categoryName,
+  categoryCounts,
+  activeCategory,
+  keyword,
+  filteredGames,
+} = useGames()
 
 useHead({ title: 'Han Game 遊戲大廳' })
+
+// ---------- 遊戲介紹視窗：網址 /?{id} 就打開該遊戲 ----------
+const route = useRoute()
+const router = useRouter()
+
+/** 網址參數裡第一個對得到的遊戲 id（/?true-hobo-1、/?true-hobo-1&fbclid=… 都可以） */
+const selectedGame = computed(() => {
+  for (const key of Object.keys(route.query)) {
+    const game = findGame(key)
+    if (game) return game
+  }
+  return null
+})
+
+function closeModal() {
+  // 從大廳點卡片打開的 → 回上一頁（手機按返回鍵也是關視窗）；直接開 /?{id} 進來的 → 換成首頁網址
+  if (window.history.state?.back) router.back()
+  else router.replace({ query: {} })
+}
 
 function resetFilter() {
   activeCategory.value = ALL_CATEGORY
@@ -16,9 +44,9 @@ function resetFilter() {
   <main>
     <h1 class="visually-hidden">Han Game 遊戲大廳</h1>
 
-    <HeroFeatured v-if="featured" :game="featured" :category-name="categoryName(featured.category)" />
+    <HeroFeatured v-if="pinned" :game="pinned" :category-name="categoryName(pinned.category)" />
 
-    <section id="games" class="games" :class="{ 'no-hero': !featured }" aria-labelledby="games-title">
+    <section id="games" class="games" :class="{ 'no-hero': !pinned }" aria-labelledby="games-title">
       <header class="games__head">
         <h2 id="games-title" class="games__title">
           遊戲列表
@@ -54,6 +82,17 @@ function resetFilter() {
         <button type="button" class="games__reset" @click="resetFilter">清除篩選</button>
       </div>
     </section>
+
+    <!-- 靜態網站預先產生的 HTML 沒有網址參數，所以視窗只在瀏覽器端顯示（ClientOnly），避免 hydration 不一致 -->
+    <ClientOnly>
+      <GameModal
+        v-if="selectedGame"
+        :key="selectedGame.id"
+        :game="selectedGame"
+        :category-name="categoryName(selectedGame.category)"
+        @close="closeModal"
+      />
+    </ClientOnly>
   </main>
 </template>
 

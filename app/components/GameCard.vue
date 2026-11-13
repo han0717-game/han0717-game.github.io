@@ -7,14 +7,11 @@ const playable = computed(() => props.game.status === 'live' && !!props.game.url
 </script>
 
 <template>
-  <component
-    :is="playable ? 'a' : 'div'"
+  <!-- 點卡片 → 網址變成 /?{id} → 首頁打開遊戲介紹視窗（pages/index.vue） -->
+  <NuxtLink
+    :to="{ query: { [game.id]: null } }"
     class="card"
     :class="{ 'is-soon': !playable }"
-    :href="playable ? game.url : undefined"
-    :target="playable ? '_blank' : undefined"
-    :rel="playable ? 'noopener' : undefined"
-    :aria-disabled="playable ? undefined : 'true'"
     :style="{ '--accent': game.accent }"
   >
     <div class="card__media">
@@ -44,7 +41,7 @@ const playable = computed(() => props.game.status === 'live' && !!props.game.url
         <li v-for="tag in game.tags" :key="tag">#{{ tag }}</li>
       </ul>
     </div>
-  </component>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">
@@ -96,30 +93,13 @@ const playable = computed(() => props.game.status === 'live' && !!props.game.url
     }
   }
 
-  &:active:not(.is-soon) {
+  &:active {
     transform: translateY(-1px) scale(0.99);
   }
 
-  &.is-soon {
-    cursor: default;
-
-    .card__cover {
-      filter: grayscale(0.3) brightness(0.85);
-    }
-
-    @include hover {
-      transform: none;
-      border-color: $c-border-strong;
-      box-shadow: none;
-
-      &::after {
-        opacity: 0;
-      }
-
-      .card__cover {
-        transform: none;
-      }
-    }
+  // 即將推出：封面調暗，但一樣可以點開介紹視窗
+  &.is-soon .card__cover {
+    filter: grayscale(0.3) brightness(0.85);
   }
 
   // ---------- 封面 ----------

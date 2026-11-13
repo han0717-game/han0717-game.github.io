@@ -11,7 +11,11 @@ export function useGames() {
   const games: readonly Game[] = data.games
   const categories: readonly GameCategory[] = data.categories
 
-  const featured = games.find((g) => g.featured && g.status === 'live') ?? games.find((g) => g.status === 'live')
+  /** 最上方主打區：第一個置頂（pinned）且可以玩的；都沒置頂就用第一款可以玩的 */
+  const pinned = games.find((g) => g.pinned && g.status === 'live') ?? games.find((g) => g.status === 'live')
+
+  /** 依 id 找遊戲 */
+  const findGame = (id: string): Game | undefined => games.find((g) => g.id === id)
 
   const categoryName = (id: string): string => categories.find((c) => c.id === id)?.name ?? id
 
@@ -42,7 +46,8 @@ export function useGames() {
   return {
     games,
     categories,
-    featured,
+    pinned,
+    findGame,
     categoryName,
     categoryCounts,
     activeCategory,

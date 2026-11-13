@@ -87,6 +87,67 @@ button {
   border: 2px solid $c-bg;
 }
 
+// 遊戲介紹視窗打開時，背後的頁面不能捲動
+html.is-modal-open {
+  overflow: hidden;
+}
+
+// ---------- 按鈕（主打區、遊戲介紹視窗共用） ----------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition:
+    transform 0.25s $ease-out,
+    background-color 0.2s,
+    box-shadow 0.25s,
+    border-color 0.2s;
+  @include focus-ring;
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  &--primary {
+    background: $c-primary;
+    color: $c-primary-ink;
+    box-shadow: 0 10px 30px -8px rgba($c-primary, 0.6);
+
+    &:not(:disabled) {
+      @include hover {
+        background: $c-primary-hover;
+        box-shadow: 0 14px 36px -8px rgba($c-primary, 0.75);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  &--ghost {
+    border: 1px solid $c-border-strong;
+    background: rgba($c-surface-1, 0.6);
+    color: $c-text;
+
+    @include hover {
+      border-color: rgba(255, 255, 255, 0.32);
+      background: $c-surface-2;
+    }
+  }
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 1px;

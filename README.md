@@ -27,8 +27,13 @@ npm run typecheck  # TypeScript 型別檢查
 | `platforms` | `mobile`、`desktop` |
 | `status` | `live`（可玩）或 `coming-soon`（即將推出，卡片不能點） |
 | `badge` | `new`、`hot`、`update`（可省略） |
-| `featured` | `true` 會放在最上方主打區（取第一個 `live` 的） |
+| `pinned` | 置頂：`true` 會放在最上方主打區（只顯示一款，取第一個置頂且 `live` 的；都沒設定就用第一款 `live` 的） |
 | `accent` | 遊戲代表色，例如 `#f6c27a` |
+
+## 遊戲介紹視窗
+
+網址 `https://han0717-game.github.io/?{id}` 會打開該遊戲的介紹視窗，例如 `https://han0717-game.github.io/?true-hobo-1`。
+點大廳裡的遊戲卡片也會打開同一個視窗，網址會跟著變，可以直接複製分享；視窗裡的「開始遊戲」另開新分頁。
 
 ## 部署
 
