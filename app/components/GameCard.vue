@@ -12,6 +12,8 @@ const playable = computed(() => props.game.status === 'live' && !!props.game.url
     class="card"
     :class="{ 'is-soon': !playable }"
     :href="playable ? game.url : undefined"
+    :target="playable ? '_blank' : undefined"
+    :rel="playable ? 'noopener' : undefined"
     :aria-disabled="playable ? undefined : 'true'"
     :style="{ '--accent': game.accent }"
   >
@@ -22,10 +24,6 @@ const playable = computed(() => props.game.status === 'live' && !!props.game.url
         <GameBadge v-if="!playable" type="soon" />
         <GameBadge v-else-if="game.badge" :type="game.badge" />
       </div>
-
-      <span v-if="playable" class="card__play" aria-hidden="true">
-        <AppIcon name="play" :size="22" />
-      </span>
     </div>
 
     <div class="card__body">
@@ -96,11 +94,6 @@ const playable = computed(() => props.game.status === 'live' && !!props.game.url
     .card__cover {
       transform: scale(1.05);
     }
-
-    .card__play {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
   }
 
   &:active:not(.is-soon) {
@@ -158,27 +151,6 @@ const playable = computed(() => props.game.status === 'live' && !!props.game.url
     z-index: 1;
     display: flex;
     gap: 6px;
-  }
-
-  &__play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 1;
-    display: grid;
-    place-items: center;
-    width: 56px;
-    height: 56px;
-    padding-left: 3px;
-    border-radius: 50%;
-    background: $c-primary;
-    color: $c-primary-ink;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.7);
-    transition:
-      opacity 0.3s,
-      transform 0.35s $ease-out;
   }
 
   // ---------- 內容 ----------

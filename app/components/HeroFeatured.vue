@@ -13,7 +13,13 @@ const platformLabel = { mobile: '手機', desktop: '電腦' } as const
     </div>
 
     <div class="hero__inner">
-      <a :href="game.url" class="hero__visual" :aria-label="`開始玩 ${game.title}`">
+      <a
+        :href="game.url"
+        target="_blank"
+        rel="noopener"
+        class="hero__visual"
+        :aria-label="`開始玩 ${game.title}（另開新分頁）`"
+      >
         <GameCover :game="game" eager />
         <span class="hero__visual-shine" aria-hidden="true" />
       </a>
@@ -38,7 +44,7 @@ const platformLabel = { mobile: '手機', desktop: '電腦' } as const
         </ul>
 
         <div class="hero__actions">
-          <a :href="game.url" class="btn btn--primary">
+          <a :href="game.url" target="_blank" rel="noopener" class="btn btn--primary">
             <AppIcon name="play" :size="18" />
             立即遊玩
           </a>
